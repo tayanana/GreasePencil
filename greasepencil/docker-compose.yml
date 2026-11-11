@@ -1,0 +1,39 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment:
+      PORT: 4871
+      DATA_DIR: /data
+      APP_TIME_ZONE: Africa/Harare
+      AUTO_SEED: "true"
+    ports:
+      - "4871:4871"
+    volumes:
+      - garage-data:/data
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:4871/api/health').then((response) => process.exit(response.ok ? 0 : 1)).catch(() => process.exit(1))",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "4870:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+
+volumes:
+  garage-data:

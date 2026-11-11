@@ -1,0 +1,17 @@
+{
+  "name": "greasepencil",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "DIY garage and auto maintenance tracker. React SPA, Express API, Docker Compose.",
+  "scripts": {
+    "dev": "concurrently -n api,web -c red,blue \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\"",
+    "build": "npm run build --prefix frontend && node scripts/migrate.mjs",
+    "start": "DATA_DIR=./data APP_TIME_ZONE=Africa/Harare node backend/server.js",
+    "test": "npm test --prefix backend && npm test --prefix frontend",
+    "lint": "npm run lint --prefix frontend"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

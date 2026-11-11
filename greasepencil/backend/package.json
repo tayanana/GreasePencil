@@ -1,0 +1,23 @@
+{
+  "name": "greasepencil-api",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "REST API for the Greasepencil garage and maintenance tracker",
+  "scripts": {
+    "dev": "DATA_DIR=./data APP_TIME_ZONE=Africa/Harare node --watch server.js",
+    "start": "DATA_DIR=./data APP_TIME_ZONE=Africa/Harare node server.js",
+    "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --runInBand",
+    "migrate": "node scripts/migrate.mjs"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "^0.3.14",
+    "express": "^4.21.2",
+    "helmet": "^8.1.0",
+    "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "jest": "^30.2.0",
+    "supertest": "^7.1.4"
+  }
+}
